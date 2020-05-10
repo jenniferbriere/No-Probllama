@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>No Probllama! | Animals</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      margin:auto;
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+    
+  .carousel-inner img {
+      width: 100%; /* Set width to 100% */
+      margin: auto;
+      min-height:200px;
+      max-height:700px;
+  }
+
+  /* Hide the carousel text when the screen is less than 600 pixels wide */
+  @media (max-width: 600px) {
+    .carousel-caption {
+      display: none; 
+    }
+  }
+
+* {
+  box-sizing: border-box;
+}
+
+/* Style the search field */
+form.example input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #ffffff;
+}
+
+/* Style the submit button */
+form.example button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+}
+
+form.example button:hover {
+  background: #0b7dda;
+}
+
+/* Clear floats */
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+hr { display: block; margin-before: 0.5em; margin-after: 0.5em; margin-start: auto; margin-end: auto; overflow: hidden; border-style: inset; border-width: 1px;}
+
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="index.html">No Probllama!</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="index.html">Home</a></li>
+        <li class="active"><a href="#">Animals</a></li>
+        <li><a href="food.html">Food Inventory</a></li>
+        <li><a href="sponsorships.html">Sponsorships</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="col-md-8 mx-auto">
+          <h3>Add an Animal</h3><br>
+
+	  <!-- Load icon library -->
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	  <!-- The form -->
+	<form>
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Name</label>
+    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Species</label>
+    <select class="form-control" id="exampleFormControlSelect1">
+      <option></option>
+      <option>Hippo</option>
+      <option>Moose</option>
+      <option>Tiger</option>
+      <option>Llama</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput2">Birthdate</label>
+    <input type="date" class="form-control" id="exampleFormControlInput2">
+  </div>
+  <div>
+  <input type="submit" value="Submit">
+  </div><br>
+  <div class="form-group">
+    <label for="exampleFormControlInput2">Add New Species</label>
+    <input type="text" class="form-control" id="exampleFormControlInput2">
+  </div>
+  <div>
+  <input type="submit" value="Submit">
+  </div>
+</form>  
+	<br><hr>
+          <h3>Search for an Animal</h3><br>
+
+          <h4>Search by Name</h4>
+
+	  <!-- Load icon library -->
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	  <!-- The form -->
+	  <form class="example" action="action_page.php">
+  		  <input type="text" placeholder="Search..." name="search">
+  		  <button type="submit"><i class="fa fa-search"></i></button>
+	  </form><br><br>
+
+          <h4>Search by Species</h4>
+
+	  <!-- Load icon library -->
+	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	  <!-- The form -->
+	  <form class="example" action="action_page.php">
+  		  <input type="text" placeholder="Search..." name="search">
+  		  <button type="submit"><i class="fa fa-search"></i></button>
+	  </form><br>
+
+	<div class="form-check">
+  		<input class="form-check-input" type="checkbox" value="" id="all_animals">
+  			<label class="form-check-label" for="defaultCheck1">
+    			Display All Animals
+  		</label>
+	</div><br><br><hr>
+
+          <!--Animal Search Results-->
+
+          <h3>Search Results (*note: these search results would not appear until a search has been done)</h3>
+          <table class="table mt-3">
+            <thead> 
+              <tr><th>ID</th>
+              <th>NAME</th>
+              <th>SPECIES</th>
+              <th>BIRTHDATE</th>
+              <th>ACTIVE</th>
+            </tr></thead> 
+            <tbody>
+              <tr> 
+                <td>0000</td> 
+                <td>Bob</td> 
+                <td>Llama</td> 
+                <td>1/1/2016</td>
+                <td>YES</td>
+              </tr>
+              <tr> 
+                <td>0001</td> 
+                <td>George</td> 
+                <td>Tiger</td> 
+                <td>5/6/2008</td>
+                <td>NO</td>
+              </tr>
+              <tr> 
+                <td>0002</td> 
+                <td>Fudge</td> 
+                <td>Moose</td> 
+                <td>12/7/2003</td>
+                <td>YES</td>
+              </tr>
+            </tbody> 
+          </table>
+
+
+
+<footer class="container-fluid text-center">
+  <h6>Copyright No Probllama! 2020 All Rights Reserved.</h6>
+</footer>
+</div>
+</body>
+</html>
