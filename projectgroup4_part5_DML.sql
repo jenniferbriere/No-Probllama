@@ -56,20 +56,29 @@ INSERT INTO animals_foods (animal_id, food_id, amount, x_per_day)
 VALUES (:animal_id_from_dropdown_Input, :food_id_from_dropdown_Input, :amountInput, :x_per_day_Input);
 
 -- display all diets
-SELECT animals.animal_id, animals.name, species.species_name, foods.food_type, animals_foods.amount, animals_foods.x_per_day FROM animals_foods
+SELECT animals.name, species.species_name, foods.food_type, animals_foods.amount, animals_foods.x_per_day FROM animals_foods
 JOIN animals ON animals_foods.animal_id = animals.animal_id
 JOIN species ON animals.species_id = species.species_id
 JOIN foods ON animals_foods.food_id = foods.food_id
 ORDER BY animals.name ASC;
 
 -- delete and animal/food record (M:M)
+DELETE FROM animals_foods WHERE animal_id = :animal_id_Input and food_id = :food_id_Input;
 
+-- update amount in animal/food record
+UPDATE animals_foods SET amount = :amount_Input;
 
--- update an animal/food record
+-- update frequency in animal/food record
+UPDATE animals_foods SET x_per_day = :x_per_day_Input;
 
 -- search for diets by animal name
+SELECT animals.name, species.species_name, foods.food_type, animals_foods.amount, animals_foods.x_per_day FROM animals_foods
+JOIN animals ON animals_foods.animal_id = animals.animal_id
+JOIN species ON animals.species_id = species.species_id
+JOIN foods ON animals_foods.food_id = foods.food_id
+WHERE animals.name = :animal_name_Input
+ORDER BY animals.name ASC;
 
--- search for diets by food type
 
 --SPONSORS
 
