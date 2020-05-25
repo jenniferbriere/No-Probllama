@@ -1,0 +1,84 @@
+<html lang="en">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="index.html">No Probllama!</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="animals.html">Animals</a></li>
+        <li class="active"><a href="#">Food Inventory</a></li>
+	<li><a href="feedings.html">Feedings</a></li>
+        <li><a href="sponsorships.html">Sponsorships</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="col-md-8 mx-auto">
+
+
+    <div class=""><h3>Add a New Food</h3></div>
+    <br>
+
+	<form id="addfood" method="post" action="/food" >
+		<div class="form-group">
+			<label for="food_type">Food type</label>
+			<input type="text" class="form-control" name="food_type">
+		</div>
+		<div class="form-group">
+			<label for="amount">Amount (lbs)</label>
+			<input type="number" class="form-control" name="amount">
+		</div>
+		<div class="form-group">
+			<input type="submit" name="add" value="Add">
+		</div>
+	</form>
+
+    <br>
+    <hr>
+
+    <div class=""><h3>Food Inventory</h3></div>
+    <br>
+    
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th>Food type</th>
+                <th>Inventory (lbs)</th>
+                <th colspan="3"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each food}}
+            <tr>
+                <td>{{food_type}}</td>
+                <td>{{inventory}}</td>
+                <td>
+                  <input type="text" class="form-control" name="amount" >
+               </td>
+                <td>
+                   <button class="btn" name="update" onclick="updateFood({{food_id}})">Update</button>
+                </td>
+                <td>
+                    <button class="btn" name="delete"  onclick="deleteFood({{food_id}})">Delete</button>
+                </td>
+            </tr>
+         </tbody>
+    </table>
+
+
+<footer class="container-fluid text-center">
+  <h6>Copyright No Probllama! 2020 All Rights Reserved.</h6>
+</footer>
+
+</div>
+</div>
+
+</html>
