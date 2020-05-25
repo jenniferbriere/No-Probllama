@@ -1,0 +1,139 @@
+<html>
+<html lang="en">
+<head>
+  <title>No Probllama! | Animals</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/css.css">
+  <!-- Load icon library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="index.html">No Probllama!</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="index.html">Home</a></li>
+        <li class="active"><a href="#">Animals</a></li>
+        <li><a href="food.html">Food Inventory</a></li>
+	<li><a href="feedings.html">Feedings</a></li>
+        <li><a href="sponsorships.html">Sponsorships</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="col-md-8 mx-auto">
+          <h3>Animals</h3><br>
+
+    <h4>Add an Animal</h4><br>
+	  <!-- The form -->
+<form id="addAnimal" action="/animals" method="post">
+  <div class="form-group">
+    <label for="exampleFormControlInput1">Name</label>
+    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlSelect1">Species</label>
+    <select class="form-control" id="exampleFormControlSelect1" name="species">
+	{{#each species}}
+	<option value="{{id}}">{{species_name}}</option>
+	{{/each}}
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="exampleFormControlInput2">Birthdate</label>
+    <input type="date" class="form-control" id="exampleFormControlInput2">
+  </div>
+  <div>
+  <input type="submit" value="Submit">
+  </div>
+  <br><hr>
+  <div class="form-group">
+    <label for="exampleFormControlInput2"><h4>Add New Species</h4></label>
+    <input type="text" class="form-control" id="exampleFormControlInput2">
+  </div>
+  <div>
+  <input type="submit" value="Submit">
+  </div>
+</form>  
+	<br><hr>
+          <h4>Search for an Animal</h4><br>
+
+          <h4>Search by Name</h4>
+
+
+	  <!-- The form -->
+	  <form class="example" action="action_page.php">
+  		  <input id='name_search_string' type='text' name='name_search_string' value=''>
+  		  <input type="button" value="Search" onclick="searchAnimalsByName()">
+	  </form><br><br>
+
+          <h4>Filter by Species</h4>
+
+	  <!-- Filter by species not yet implemented on frontend-->
+	<form id='filter_animals' action='' method=''>
+	<!--- this form does not submit directly, the button handles all the interaction with backend -->
+    	<label> Filter by Species </label>
+    	<select id='species_filter' name="species"> 
+        	{{#each species}}
+        	<option value="{{species_id}}">{{species_name}}</option>
+        	{{/each}}
+    	</select><br>
+    	<input type="button" value="Filter" onclick="filterAnimalsBySpecies()">
+	</form>
+
+
+	<div class="form-check">
+  		<input class="form-check-input" type="checkbox" value="" id="all_animals">
+  			<label class="form-check-label" for="defaultCheck1">
+    			Display All Animals
+  		</label>
+	</div><br><br><hr>
+
+          <!--Animal Search Results / Display Current Animals-->
+
+          <h3>Search Results</h3>
+          <table class="table mt-3">
+            <thead> 
+              <tr><th>ID</th>
+              <th>NAME</th>
+              <th>SPECIES</th>
+              <th>BIRTHDATE</th>
+              <th>ACTIVE</th>
+            </tr></thead> 
+            <tbody>
+            	{{#each animals}}
+		<tr>
+			<td>{{animal_id}}</td>
+			<td>{{name}}</td>
+			<td>{{species_id}}</td>
+			<td>{{birthdate}}</td>
+			<td>{{active}}</td>
+		</tr>
+		{{/each}}
+            </tbody> 
+          </table>
+
+
+
+<footer class="container-fluid text-center">
+  <h6>Copyright No Probllama! 2020 All Rights Reserved.</h6>
+</footer>
+</div>
+</body>
+</html>
