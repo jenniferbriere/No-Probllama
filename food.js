@@ -1,8 +1,9 @@
+
 module.exports = function(){
     var express = require('express');
     var router = express.Router();
 
-    /* -- I think this is correct -- */
+    /* -- gets all the foods currently in the db -- */
     function getFoods(res, mysql, context, complete){
         mysql.pool.query("SELECT foods.food_type, foods.inventory FROM foods ORDER BY foods.food_id ASC", function(error, results, fields){
             if(error){
@@ -13,8 +14,6 @@ module.exports = function(){
             complete();
         });
     }
-
-
 
     /*Displays all Foods in current inventory. -- not sure aobut context.jsscripts */
 
@@ -29,20 +28,17 @@ module.exports = function(){
             if(callbackCount >= 2){
                 res.render('food', context);
             }
-
         }
     });
 
     /* Adds a new food type, reloads food inventory page after adding -- pretty sure this one is correct */
 
     router.post('/', function(req, res){
-        console.log(req.body)
         var mysql = req.app.get('mysql');
         var sql = "INSERT INTO foods (food_type, inventory) VALUES (?,?)";
         var inserts = [req.body.food_type, req.body.inventory];
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
             if(error){
-                console.log(JSON.stringify(error))
                 res.write(JSON.stringify(error));
                 res.end();
             }else{

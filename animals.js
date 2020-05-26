@@ -15,7 +15,7 @@ module.exports = function(){
     }
 
     function getAnimals(res, mysql, context, complete){
-        mysql.pool.query("SELECT animals.animal_id as id, name, species.species_name, birthdate, active FROM animals INNER JOIN species ON animals.species_id = species.species_id", function(error, results, fields){
+        mysql.pool.query("SELECT animals.animal_id, animals.name, species.species_name, animals.birthdate, animals.active FROM animals INNER JOIN species ON animals.species_id = species.species_id", function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
                 res.end();
@@ -26,7 +26,7 @@ module.exports = function(){
     }
 
     function getAnimalsbySpecies(req, res, mysql, context, complete){
-      var query = "SELECT animals.animal_id as id, name, species.species_name, birthdate, active FROM animals INNER JOIN species ON animal.species_id = species.species_id WHERE animal.species_id = ?";
+      var query = "SELECT animals.animal_id, animals.name, species.species_name, birthdate, active FROM animals INNER JOIN species ON animals.species_id = species.species_id WHERE animals.species_id = ?";
       console.log(req.params)
       var inserts = [req.params.species_id]
       mysql.pool.query(query, inserts, function(error, results, fields){
@@ -42,7 +42,7 @@ module.exports = function(){
     /* Find animals whose names start with a given string in the req */
     function getAnimalsWithNameLike(req, res, mysql, context, complete) {
       //sanitize the input as well as include the % character
-       var query = "SELECT animals.animal_id as id, name, species.species_name, birthdate, active FROM animals INNER JOIN species ON animal.species_id = species.species_id WHERE animal.name LIKE " + mysql.pool.escape(req.params.s + '%');
+       var query = "SELECT animals.animal_id, animals.name, species.species_name, birthdate, active FROM animals INNER JOIN species ON animals.species_id = species.species_id WHERE animals.name LIKE " + mysql.pool.escape(req.params.s + '%');
       console.log(query)
 
       mysql.pool.query(query, function(error, results, fields){
@@ -56,7 +56,7 @@ module.exports = function(){
     }
 
     function getAnimal(res, mysql, context, id, complete){
-        var sql = "SELECT animals.animal_id as id, name, species.species_name, birthdate, active FROM animals WHERE animal_id = ?";
+        var sql = "SELECT animals.animal_id, name, species.species_name, birthdate, active FROM animals WHERE animal_id = ?";
         var inserts = [id];
         mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
@@ -128,8 +128,8 @@ module.exports = function(){
         console.log(req.body.species_id)
         console.log(req.body)
         var mysql = req.app.get('mysql');
-        var sql = "INSERT INTO animals (name, species_id, birthdate, active) VALUES (?,?,?,?)";
-        var inserts = [req.body.name, req.body.species_id, req.body.birthdate, req.body.active];
+        var sql = "INSERT INTO animals (name, species_id, birthdate) VALUES (?,?,?)";
+        var inserts = [req.body.name, req.body.id, req.body.birthdate];
         sql = mysql.pool.query(sql,inserts,function(error, results, fields){
             if(error){
                 console.log(JSON.stringify(error))
@@ -142,8 +142,8 @@ module.exports = function(){
     });
 
     /* Adds a species, redirects to the animals page after adding */
-
-    router.post('/', function(req, res){
+    // need to figure out how to do a second post for same '/' on same page
+/*     router.post('/', function(req, res){
         console.log(req.body.species_name)
         console.log(req.body)
         var mysql = req.app.get('mysql');
@@ -158,7 +158,7 @@ module.exports = function(){
                 res.redirect('/animals');
             }
         });
-    });
+    }); */
 
 
     return router;

@@ -1,13 +1,13 @@
   
 {
-  "name": "hello-world",
+  "name": "NoProbllama!!",
   "version": "1.0.0",
-  "description": "Hello world with express and node.js",
-  "main": "app.js",
+  "description": "No Probllama!!",
+  "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "OSU",
+  "author": "Jennifer Briere & Jordan Colbeth",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.13.3",

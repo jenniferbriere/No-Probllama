@@ -86,5 +86,6 @@ module.exports = function(){
             }
         });
     });
-   return router;
+
+    return router;
 }();
