@@ -37,7 +37,7 @@ animal_id int(11) NOT NULL AUTO_INCREMENT,
 name varchar (255) NOT NULL,
 species_id int (11),
 birthdate date,
-active tinyint (1) NOT NULL,
+active tinyint (1) DEFAULT '1' NOT NULL,
 PRIMARY KEY (animal_id),
 FOREIGN KEY (species_id) REFERENCES species (species_id) ON DELETE NO ACTION ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>No Probllama! | Feeding Details</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/css.css">
+	<!-- Load icon library -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="index.html">No Probllama!</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="animals.html">Animals</a></li>
+        <li><a href="food.html">Food Inventory</a></li>
+	<li class="active"><a href="#">Feedings</a></li>
+        <li><a href="sponsorships.html">Sponsorships</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="col-md-8 mx-auto">
+
+	<div><br>
+        <h3>Search for Feeding Details by Animal Name</h3>
+
+	<!-- The form -->
+	<form class="example" action="action_page.php">
+  		  <input type="text" placeholder="Search..." name="search">
+  		  <button type="submit"><i class="fa fa-search"></i></button>
+	</form><br><br>	
+	</div>
+
+    <div class=""><h3>Add New Feeding Details for an Animal</h3></div>
+    <br>
+
+	<form method="" action="" >
+		<div class="form-group">
+			<label for="animal_name">Animal Name</label>
+			<input type="text" class="form-control" name="animal_name" value="ex: Fudge">
+		</div>
+		<div class="form-group">
+			<label for="food_type">Food Type</label>
+			<input type="text" class="form-control" name="food_type" value="ex: Carrots">
+		</div>
+		<div class="form-group">
+			<label for="amount">Amount</label>
+			<input type="number" class="form-control" name="amount" value="">
+		</div>
+		<div class="form-group">
+			<label for="x_per_day">Times per Day</label>
+			<input type="number" class="form-control" name="x_per_day" value="">
+		</div>
+		<div class="form-group">
+			<input type="submit" class="" name="add" value="Add">
+		</div>
+	</form>
+
+    <br>
+    <hr>
+
+    <div class=""><h3>List of Feeding Details</h3></div>
+    <br>
+    
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th>Animal</th>
+		<th>Food type</th>
+                <th>Amount</th>
+		<th></th> <!-- empty for update bar -->
+		<th></th> <!-- empty for update button -->
+                <th>Times per Day</th>
+                <th colspan="3"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Joey</td>
+		<td>Carrots</td>
+                <td>20</td>
+                <td>
+                  <input type="text" class="form-control" name="" value="">
+               </td>
+                <td> 
+                    <button class="btn" type="" name="update" >Update</button>
+                </td>
+                <td>3</td>
+                <td>
+                  <input type="text" class="form-control" name="" value="">
+               </td>
+                <td>
+                   <button class="btn" type="" name="update" >Update</button>
+                </td>
+                <td>
+                    <button class="btn" type="" name="delete" >Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Fudge</td>
+		<td>Hay</td>
+                <td>30</td>
+                <td>
+                  <input type="text" class="form-control" name="" value="">
+               </td>
+                <td> 
+                    <button class="btn" type="" name="update" >Update</button>
+                </td>
+		<td>3</td>
+                <td>
+                  <input type="text" class="form-control" name="" value="">
+               </td>
+                <td> 
+                    <button class="btn" type="" name="update" >Update</button>
+                </td>
+                <td>
+                    <button class="btn" type="" name="delete" >Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>George</td>
+		<td>Chicken</td>
+                <td>15</td>
+                <td>
+                  <input type="text" class="form-control" name="" value="">
+               </td>
+                <td> 
+                    <button class="btn" type="" name="update" >Update</button>
+                </td>
+		<td>4</td>
+                <td>
+                  <input type="text" class="form-control" name="" value="">
+               </td>
+                <td>
+                    <button class="btn" type="" name="update" >Update</button>
+                </td>
+                <td>
+                    <button class="btn" type="" name="delete" >Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Fudge</td>
+		<td>Apples</td>
+                <td>20</td>
+                <td>
+                  <input type="text" class="form-control" name="" value="">
+               </td>
+                <td> 
+                    <button class="btn" type="" name="update" >Update</button>
+                </td>
+		<td>3</td>
+                <td>
+                  <input type="text" class="form-control" name="" value="">
+               </td>
+                <td>
+                    <button class="btn" type="" name="update" >Update</button>
+                </td>
+                <td>
+                    <button class="btn" type="" name="delete" >Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+<footer class="container-fluid text-center">
+  <h6>Copyright No Probllama! 2020 All Rights Reserved.</h6>
+</footer>
+
+</div>
+</div>
+</body>
+</html>

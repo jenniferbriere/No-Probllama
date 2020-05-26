@@ -83,7 +83,7 @@ module.exports = function(){
                 res.redirect('/feedings');
             }
         });
-
+    });
 
     return router;
 }();
