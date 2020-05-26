@@ -22,6 +22,7 @@ module.exports = function () {
         context.jsscripts = ['deletefood.js'];
         var mysql = req.app.get('mysql');
         var handlebars_file = 'food';
+
         getFoods(res, mysql, context, complete);
         function complete() {
             callbackCount++;
