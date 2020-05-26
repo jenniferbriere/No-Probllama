@@ -1,54 +1,52 @@
-
-module.exports = function(){
+module.exports = function () {
     var express = require('express');
     var router = express.Router();
 
     /* -- gets all the foods currently in the db -- */
-    function getFoods(res, mysql, context, complete){
-        mysql.pool.query("SELECT foods.food_type, foods.inventory FROM foods ORDER BY foods.food_id ASC", function(error, results, fields){
-            if(error){
+    function getFoods(res, mysql, context, complete) {
+        mysql.pool.query('SELECT food_type, inventory FROM foods', function (error, results, fields) {
+            if (error) {
                 res.write(JSON.stringify(error));
                 res.end();
             }
-            context.food = results;
+            context.foods = results;
             complete();
         });
     }
 
     /*Displays all Foods in current inventory. -- not sure aobut context.jsscripts */
 
-    router.get('/', function(req, res){
+    router.get('/', function (req, res) {
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ["deletefood.js"];    
+        context.jsscripts = ['deletefood.js'];
         var mysql = req.app.get('mysql');
+        var handlebars_file = 'food';
+
         getFoods(res, mysql, context, complete);
-        function complete(){
+        function complete() {
             callbackCount++;
-            if(callbackCount >= 2){
-                res.render('food', context);
+            if (callbackCount >= 2) {
+                res.render('foods', context);
             }
         }
     });
 
     /* Adds a new food type, reloads food inventory page after adding -- pretty sure this one is correct */
 
-    router.post('/', function(req, res){
+    router.post('/', function (req, res) {
         var mysql = req.app.get('mysql');
-        var sql = "INSERT INTO foods (food_type, inventory) VALUES (?,?)";
+        var sql = 'INSERT INTO foods (food_type, inventory) VALUES (?,?)';
         var inserts = [req.body.food_type, req.body.inventory];
-        sql = mysql.pool.query(sql,inserts,function(error, results, fields){
-            if(error){
+        sql = mysql.pool.query(sql, inserts, function (error, results, fields) {
+            if (error) {
                 res.write(JSON.stringify(error));
                 res.end();
-            }else{
+            } else {
                 res.redirect('/food');
             }
         });
     });
-
-    
-
 
     /* The URI that update data is sent to in order to update a food quantity */
     /* UPDATE is next week
@@ -71,7 +69,7 @@ module.exports = function(){
     }); */
 
     /* Route to delete a food type, simply returns a 202 upon success. Ajax will handle this. */
-    
+
     /*     UPDATE is next week
     router.delete('/:id', function(req, res){
         var mysql = req.app.get('mysql');
