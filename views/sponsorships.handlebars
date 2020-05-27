@@ -5,7 +5,7 @@
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
+        <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="/">No Probllama!</a>
     </div>
@@ -13,8 +13,8 @@
       <ul class="nav navbar-nav">
         <li><a href="/">Home</a></li>
         <li><a href="/animals">Animals</a></li>
-        <li><a href="/food">Food Inventory</a></li>
-	<li><a href="/feedings">Feedings</a></li>
+        <li><a href="/foods">Food Inventory</a></li>
+        <li><a href="/feedings">Feedings</a></li>
         <li class="active"><a href="#">Sponsorships</a></li>
       </ul>
     </div>
@@ -22,87 +22,93 @@
 </nav>
 
 <div class="col-md-8 mx-auto">
-    <div class=""><h3>Sponsorships</h3></div>
-    <br>
-    
-    <!-- Add New Sponsorship section-->
-    <div class=""><h4>Add New Sponsorship</h4></div>
-    <br>
-	<div class="form-group">
-	<form id="addSponsorship" method="post" action="/sponsorships" >
-        <label>Select Sponsor</label>
-        <select class="form-control" id="sponsor" name="sponsor">
+  <div class="">
+    <h3>Sponsorships</h3>
+  </div>
+  <br>
+
+  <!-- Add New Sponsorship section-->
+  <div class="">
+    <h4>Add New Sponsorship</h4>
+  </div>
+  <br>
+  <div class="form-group">
+    <form id="addSponsorship" method="post" action="/sponsorships">
+      <label>Select Sponsor</label>
+      <select class="form-control" id="sponsor" name="sponsor">
         {{#each sponsors}}
         <option value="{{sponsor_id}}">{{first_name}} {{last_name}}</option>
         {{/each}}
-        </select><br>
-        <label>Select Animal</label>
-        <select class="form-control" id="animal" name="animal">
+      </select><br>
+      <label>Select Animal</label>
+      <select class="form-control" id="animal" name="animal">
         {{#each sponsors}}
         <option value="{{animal_id}}">{{sponsee}}</option>
         {{/each}}
-        </select><br>
-        <label for="amount">Amount:</label>
-        <input type="text" class="form-control" name="amount"><br>
-	<input type="submit" name="add" value="Add">
+      </select><br>
+      <label for="amount">Amount:</label>
+      <input type="text" class="form-control" name="amount"><br>
+      <input type="submit" name="add" value="Add">
     </form>
-	</div>
+  </div>
 
-    <br>
-    <hr>
-    <br>
+  <br>
+  <hr>
+  <br>
 
-    <!-- Add New Sponsor section-->
-    <div class=""><h4>Add New Sponsor</h4></div>
-    <br>
-	<div class="form-group">
-	<form method="post" action="/sponsors" >
-        <label for="first_name">First name:</label>
-        <input type="text" class="form-control" name="first_name"><br>
-        <label for="last_name">Last name:</label for="food_type">
-        <input type="text" class="form-control" name="last_name"><br>
-        <label for="phone_number">Phone number:</label>
-        <input type="text" class="form-control" name="phone_number"<br>
-        <label for="email">Email address:</label>
-        <input type="text" class="form-control" name="email"><br>
-	<input type="submit" name="add" value="Add">
+  <!-- Add New Sponsor section-->
+  <div class="">
+    <h4>Add New Sponsor</h4>
+  </div>
+  <br>
+  <div class="form-group">
+    <form method="post" action="/sponsors">
+      <label for="first_name">First name:</label>
+      <input type="text" class="form-control" name="first_name"><br>
+      <label for="last_name">Last name:</label for="food_type">
+      <input type="text" class="form-control" name="last_name"><br>
+      <label for="phone_number">Phone number:</label>
+      <input type="text" class="form-control" name="phone_number" <br>
+      <label for="email">Email address:</label>
+      <input type="text" class="form-control" name="email"><br>
+      <input type="submit" name="add" value="Add">
     </form>
-	</div>
-    
-    <br>
-    <hr>
-    <br>
-    
-    <h3>Top Sponsors</h3><br>
-    <table class="table mt-3">
-        <thead>
-            <tr>
-                <th>Sponsor name</th>
-                <th>Animal</th>
-                <th>Species</th>                
-                <th>Amount</th>
-            </tr>
-        </thead>
-        <tbody>
-        {{#each top_sponsorships}}             
-            <tr>
-                <td>{{sponsor_name}}</td>
-                <td>{{name}}</td>
-                <td>{{species_name}}</td>
-                <td>${{amount}}</td>
-            </tr>
+  </div>
 
-        </tbody>
-    </table>
+  <br>
+  <hr>
+  <br>
 
-    <br>
-    <hr>
-    <br>
+  <h3>Top Sponsors</h3><br>
+  <table class="table mt-3">
+    <thead>
+      <tr>
+        <th>Sponsor name</th>
+        <th>Animal</th>
+        <th>Species</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each top_sponsorships}}
+      <tr>
+        <td>{{sponsor_name}}</td>
+        <td>{{name}}</td>
+        <td>{{species_name}}</td>
+        <td>${{amount}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <br>
+  <hr>
+  <br>
 
 
-<footer class="container-fluid text-center">
-  <h6>Copyright No Probllama! 2020 All Rights Reserved.</h6>
-</footer>
+  <footer class="container-fluid text-center">
+    <h6>Copyright No Probllama! 2020 All Rights Reserved.</h6>
+  </footer>
 </div>
 </div>
 

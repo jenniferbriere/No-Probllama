@@ -20,7 +20,7 @@ app.set('port', process.argv[2]);
 app.set('mysql', mysql);
 
 app.use('/animals', require('./animals.js'));
-app.use('/food', require('./food.js'));
+app.use('/foods', require('./foods.js'));
 app.use('/feedings', require('./feedings.js'));
 app.use('/sponsorships', require('./sponsorships.js'));
 app.use('/', express.static('public'));
