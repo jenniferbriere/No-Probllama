@@ -19,7 +19,7 @@ module.exports = function () {
     router.get('/', function (req, res) {
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ['deletefood.js'];
+        context.jsscripts = [''];
         var mysql = req.app.get('mysql');
         var handlebars_file = 'food';
 
