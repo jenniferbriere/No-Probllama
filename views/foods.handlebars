@@ -11,8 +11,8 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li><a href="/">Home</a></li>
-                <li class="active"><a href="#">Animals</a></li>
-                <li><a href="/foods">Food Inventory</a></li>
+                <li><a href="/animals">Animals</a></li>
+                <li class="active"><a href="#">Food Inventory</a></li>
                 <li><a href="/feedings">Feedings</a></li>
                 <li><a href="/sponsorships">Sponsorships</a></li>
             </ul>
@@ -61,17 +61,17 @@
         </thead>
         <tbody>
             <tr>
-                {{#each food}}
+                {{#each foods}}
                 <td>{{food_type}}</td>
                 <td>{{inventory}}</td>
                 <td>
                     <input type="text" class="form-control" name="amount" value="">
                 </td>
                 <td>
-                    <button class="btn" type="" name="update">Update</button>
+                    <button class="btn" type="" name="update" onclick="updatefoods({{food_id}})">Update</button>
                 </td>
                 <td>
-                    <button class="btn" type="" name="delete">Delete</button>
+                    <button class="btn" type="" name="delete" onclick="deletefoods({{food_id}})">Delete</button>
                 </td>
             </tr>
             {{/each}}
