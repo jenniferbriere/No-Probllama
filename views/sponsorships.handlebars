@@ -35,14 +35,14 @@
   <div class="form-group">
     <form id="addSponsorship" method="post" action="/sponsorships">
       <label>Select Sponsor</label>
-      <select class="form-control" id="sponsor" name="sponsor">
+      <select class="form-control" id="sponsor" name="sponsor_id">
         {{#each sponsors}}
         <option value="{{sponsor_id}}">{{first_name}} {{last_name}}</option>
         {{/each}}
       </select><br>
       <label>Select Animal</label>
-      <select class="form-control" id="animal" name="animal">
-        {{#each sponsors}}
+      <select class="form-control" id="animal" name="animal_id">
+        {{#each animals}}
         <option value="{{animal_id}}">{{sponsee}}</option>
         {{/each}}
       </select><br>

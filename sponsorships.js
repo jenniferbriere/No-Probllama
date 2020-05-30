@@ -29,7 +29,7 @@ module.exports = function () {
     /* get top sponsorships with sponsor and animal info */
 
     function getTopSponsorships(res, mysql, context, complete) {
-        sql = "SELECT CONCAT(s.first_name,' ',s.last_name) AS sponsor_name, animals.name, species.species_name, sponsorships.amount FROM sponsors s INNER JOIN sponsorships ON s.sponsor_id = sponsorships.sponsor_id INNER JOIN animals ON  sponsorships.animal_id = animals.animal_id INNER JOIN species ON animals.species_id = species.species_id  ORDER BY sponsorships.amount, sponsor_name DESC LIMIT 15"
+        sql = "SELECT CONCAT(s.first_name,' ',s.last_name) AS sponsor_name, animals.name, species.species_name, sponsorships.amount FROM sponsors s INNER JOIN sponsorships ON s.sponsor_id = sponsorships.sponsor_id INNER JOIN animals ON  sponsorships.animal_id = animals.animal_id INNER JOIN species ON animals.species_id = species.species_id  ORDER BY sponsorships.amount DESC LIMIT 15"
         mysql.pool.query(sql, function (error, results, fields) {
             if (error) {
                 res.write(JSON.stringify(error));
@@ -54,7 +54,6 @@ module.exports = function () {
         context.jsscripts = [""];
         var mysql = req.app.get('mysql');
         var handlebars_file = 'sponsorships';
-
         getSponsors(res, mysql, context, complete);
         getAnimals(res, mysql, context, complete);
         getTopSponsorships(res, mysql, context, complete);
@@ -74,8 +73,8 @@ module.exports = function () {
         console.log(req.body.animals)
         console.log(req.body)
         var mysql = req.app.get('mysql');
-        var sql = "INSERT INTO sponsorships (sponsor_id, date_of_sponsorship, animal_id, amount) VALUES (?,?,?,?)";
-        var inserts = [req.body.sid, req.body.date_of_sponsorship, req.body.aid, req.body.amount];
+        var sql = "INSERT INTO sponsorships (sponsor_id, date_of_sponsorship, animal_id, amount) VALUES (?,CURDATE(),?,?)";
+        var inserts = [req.body.sponsor_id, req.body.animal_id, req.body.amount];
         sql = mysql.pool.query(sql, inserts, function (error, results, fields) {
             if (error) {
                 console.log(JSON.stringify(error))
