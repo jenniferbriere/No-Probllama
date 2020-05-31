@@ -77,8 +77,8 @@ module.exports = function () {
         var animal = req.body.animal_id
         for (let food of foods) {
           console.log("Processing food id " + food)
-          var sql = "INSERT INTO animals_foods (animal_id, food_id) VALUES (?,?)";
-          var inserts = [animal, food];
+          var sql = "INSERT INTO animals_foods (animal_id, food_id, amount, x_per_day) VALUES (?,?,?,?)";
+          var inserts = [animal, food, amount, x_per_day];
           sql = mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
                 //TODO: send error messages to frontend as the following doesn't work
