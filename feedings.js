@@ -5,7 +5,7 @@ module.exports = function () {
 
     /* get people to populate in dropdown */
     function getAnimals(res, mysql, context, complete) {
-        mysql.pool.query('SELECT animal_id, name FROM animals', function (error, results, fields) {
+        mysql.pool.query("SELECT animals.animal_id, CONCAT(animals.name,' - ',species.species_name) AS sponsee FROM animals JOIN species ON animals.species_id = species.species_id", function (error, results, fields) {
             if (error) {
                 res.write(JSON.stringify(error));
                 res.end();
