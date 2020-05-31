@@ -65,26 +65,53 @@ module.exports = function () {
             }
         }
     });
+    
+     /* Associate food or foods with an animal and 
+     * then redirect to the foods page after adding 
+     */
+    router.post('/', function(req, res){
+        console.log("We get the multi-select foods dropdown as ", req.body.foods)
+        var mysql = req.app.get('mysql');
+        // let's get out the foods from the array that was submitted by the form 
+        var foods = req.body.foods
+        var animal = req.body.animal_id
+        for (let food of foods) {
+          console.log("Processing food id " + food)
+          var sql = "INSERT INTO animals_foods (animal_id, food_id) VALUES (?,?)";
+          var inserts = [animal, food];
+          sql = mysql.pool.query(sql, inserts, function(error, results, fields){
+            if(error){
+                //TODO: send error messages to frontend as the following doesn't work
+                /* 
+                res.write(JSON.stringify(error));
+                res.end();
+                */
+                console.log(error)
+            }
+          });
+        } //for loop ends here 
+        res.redirect('/feedings');
+    });
 
     /* Adds a new feeding, then reloads the page after adding */
 
-    router.post('/', function (req, res) {
-        console.log(req.body.animals);
-        console.log(req.body.foods);
-        console.log(req.body);
-        var mysql = req.app.get('mysql');
-        var sql = 'INSERT INTO animals_foods (animal_id, food_id, amount, x_per_day) VALUES (?,?,?,?)';
-        var inserts = [req.body.animal_id, req.body.food_id, req.body.amount, req.body.x_per_day];
-        sql = mysql.pool.query(sql, inserts, function (error, results, fields) {
-            if (error) {
-                console.log(JSON.stringify(error));
-                res.write(JSON.stringify(error));
-                res.end();
-            } else {
-                res.redirect('/feedings');
-            }
-        });
-    });
+    //router.post('/', function (req, res) {
+     //   console.log(req.body.animals);
+     //   console.log(req.body.foods);
+     //   console.log(req.body);
+     //   var mysql = req.app.get('mysql');
+     //   var sql = 'INSERT INTO animals_foods (animal_id, food_id, amount, x_per_day) VALUES (?,?,?,?)';
+     //   var inserts = [req.body.animal_id, req.body.food_id, req.body.amount, req.body.x_per_day];
+     //   sql = mysql.pool.query(sql, inserts, function (error, results, fields) {
+     //       if (error) {
+     //           console.log(JSON.stringify(error));
+     //           res.write(JSON.stringify(error));
+     //           res.end();
+     //       } else {
+     //           res.redirect('/feedings');
+     //       }
+     //   });
+//    });
     
     
     /* Delete an animal's feeding record */
