@@ -160,6 +160,40 @@ module.exports = function(){
         });
     }); */
 
+  // UPDATE FUNCTIONS BELOW
+  /* Display one animal for the specific purpose of updating animals */
+    router.get('/:id', function(req, res){
+        callbackCount = 0;
+        var context = {};
+        context.jsscripts = ["updateanimal.js"];
+        var mysql = req.app.get('mysql');
+        getAnimal(res, mysql, context, req.params.id, complete);
+        function complete(){
+            callbackCount++;
+            if(callbackCount >= 1){
+                res.render('update-animal', context);
+            }
+        }
+    });
+  
+  /* The URI that update data is sent to in order to update an animal */
+    router.put('/:id', function(req, res){
+        var mysql = req.app.get('mysql');
+        console.log(req.body)
+        console.log(req.params.id)
+        var sql = "UPDATE animals SET active=? WHERE animal_id=?";
+        var inserts = [req.body.active, req.params.id];
+        sql = mysql.pool.query(sql,inserts,function(error, results, fields){
+            if(error){
+                console.log(error)
+                res.write(JSON.stringify(error));
+                res.end();
+            }else{
+                res.status(200);
+                res.end();
+            }
+        });
+    });
 
     return router;
 }();
