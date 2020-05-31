@@ -37,10 +37,14 @@
 	</div>
 	<br>
 
-	<form method="" action="">
+	<form id="addFeeding" method="post" action="/feedings">
 		<div class="form-group">
 			<label for="animal_name">Animal Name</label>
-			<input type="text" class="form-control" name="animal_name" value="ex: Fudge">
+			<select class="form-control" id="animal" name="animal_id">
+        		{{#each animals}}
+        		<option value="{{animal_id}}">{{name}}</option>
+        		{{/each}}
+      			</select>
 		</div>
 		<div class="form-group">
 			<label for="food_type">Food Type</label>
