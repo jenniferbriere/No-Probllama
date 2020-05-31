@@ -86,18 +86,23 @@ module.exports = function () {
         });
     });
     
-    /* Route to delete a feeding, simply returns a 202 upon success. Ajax will handle this. */
-
-    router.delete('/:id', function(req, res){
+    
+    /* Delete an animal's feeding record */
+    /* This route will accept a HTTP DELETE request in the form
+     * /animal/{{animal_id}}/food/{{food_id}} -- which is sent by the AJAX form 
+     */
+    router.delete('/animal/:animal_id/food/:food_id', function(req, res){
+        //console.log(req) //I used this to figure out where did pid and cid go in the request
+        console.log(req.params.animal_id)
+        console.log(req.params.food_id)
         var mysql = req.app.get('mysql');
-        var sql = "DELETE FROM animals_foods WHERE animal_id = ?";
-        var inserts = [req.params.id];
+        var sql = "DELETE FROM animals_foods WHERE animal_id = ? AND food_id = ?";
+        var inserts = [req.params.animal_id, req.params.food_id];
         sql = mysql.pool.query(sql, inserts, function(error, results, fields){
             if(error){
-                console.log(error)
                 res.write(JSON.stringify(error));
-                res.status(400);
-                res.end();
+                res.status(400); 
+                res.end(); 
             }else{
                 res.status(202).end();
             }
