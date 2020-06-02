@@ -3,9 +3,9 @@ module.exports = function () {
     var express = require('express');
     var router = express.Router();
 
-    /* get people to populate in dropdown */
+    /* get animals to populate in dropdown */
     function getAnimals(res, mysql, context, complete) {
-        mysql.pool.query("SELECT animals.animal_id, CONCAT(animals.name,' - ',species.species_name) AS sponsee FROM animals JOIN species ON animals.species_id = species.species_id", function (error, results, fields) {
+        mysql.pool.query("SELECT animals.animal_id, animals.name, species.species_name FROM animals JOIN species ON animals.species_id = species.species_id", function (error, results, fields) {
             if (error) {
                 res.write(JSON.stringify(error));
                 res.end();
@@ -17,8 +17,7 @@ module.exports = function () {
 
     /* get foods to populate in dropdown */
     function getFoods(res, mysql, context, complete) {
-        sql = 'SELECT food_id, food_type FROM foods';
-        mysql.pool.query(sql, function (error, results, fields) {
+        mysql.pool.query("SELECT food_id, food_type FROM foods", function (error, results, fields) {
             if (error) {
                 res.write(JSON.stringify(error));
                 res.end();
