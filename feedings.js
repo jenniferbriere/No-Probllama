@@ -39,7 +39,7 @@ module.exports = function () {
                 res.write(JSON.stringify(error));
                 res.end();
             }
-            context.animals_foods = results;
+            context.feedings = results;
             complete();
         });
     }
