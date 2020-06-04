@@ -64,22 +64,22 @@ module.exports = function () {
             }
         }
     });
-    
-     /* Associate food or foods with an animal and 
-     * then redirect to the foods page after adding 
-     */
-    router.post('/', function(req, res){
-        console.log("We get the multi-select foods dropdown as ", req.body.foods)
+
+    /* Associate food or foods with an animal and 
+    * then redirect to the foods page after adding 
+    */
+    router.post('/', function (req, res) {
+        //console.log("We get the multi-select foods dropdown as ", req.body.foods)
         var mysql = req.app.get('mysql');
         // let's get out the foods from the array that was submitted by the form 
-        var foods = req.body.foods
-        var animal = req.body.animal_id
-        for (let food of foods) {
-          console.log("Processing food id " + food)
-          var sql = "INSERT INTO animals_foods (animal_id, food_id, amount, x_per_day) VALUES (?,?,?,?)";
-          var inserts = [animal, food, amount, x_per_day];
-          sql = mysql.pool.query(sql, inserts, function(error, results, fields){
-            if(error){
+        //var foods = req.body.foods
+        //var animal = req.body.animal_id
+        //for (let food of foods) {
+        //console.log("Processing food id " + food)
+        var sql = "INSERT INTO animals_foods (animal_id, food_id, amount, x_per_day) VALUES (?,?,?,?)";
+        var inserts = [req.body.animal_id, req.body.food_id, req.body.amount, req.body.x_per_day];
+        sql = mysql.pool.query(sql, inserts, function (error, results, fields) {
+            if (error) {
                 //TODO: send error messages to frontend as the following doesn't work
                 /* 
                 res.write(JSON.stringify(error));
@@ -87,49 +87,49 @@ module.exports = function () {
                 */
                 console.log(error)
             }
-          });
-        } //for loop ends here 
+        });
+        //} //for loop ends here 
         res.redirect('/feedings');
     });
 
     /* Adds a new feeding, then reloads the page after adding */
 
     //router.post('/', function (req, res) {
-     //   console.log(req.body.animals);
-     //   console.log(req.body.foods);
-     //   console.log(req.body);
-     //   var mysql = req.app.get('mysql');
-     //   var sql = 'INSERT INTO animals_foods (animal_id, food_id, amount, x_per_day) VALUES (?,?,?,?)';
-     //   var inserts = [req.body.animal_id, req.body.food_id, req.body.amount, req.body.x_per_day];
-     //   sql = mysql.pool.query(sql, inserts, function (error, results, fields) {
-     //       if (error) {
-     //           console.log(JSON.stringify(error));
-     //           res.write(JSON.stringify(error));
-     //           res.end();
-     //       } else {
-     //           res.redirect('/feedings');
-     //       }
-     //   });
-//    });
-    
-    
+    //   console.log(req.body.animals);
+    //   console.log(req.body.foods);
+    //   console.log(req.body);
+    //   var mysql = req.app.get('mysql');
+    //   var sql = 'INSERT INTO animals_foods (animal_id, food_id, amount, x_per_day) VALUES (?,?,?,?)';
+    //   var inserts = [req.body.animal_id, req.body.food_id, req.body.amount, req.body.x_per_day];
+    //   sql = mysql.pool.query(sql, inserts, function (error, results, fields) {
+    //       if (error) {
+    //           console.log(JSON.stringify(error));
+    //           res.write(JSON.stringify(error));
+    //           res.end();
+    //       } else {
+    //           res.redirect('/feedings');
+    //       }
+    //   });
+    //    });
+
+
     /* Delete an animal's feeding record */
     /* This route will accept a HTTP DELETE request in the form
      * /animal/{{animal_id}}/food/{{food_id}} -- which is sent by the AJAX form 
      */
-    router.delete('/animal/:animal_id/food/:food_id', function(req, res){
+    router.delete('/animal/:animal_id/food/:food_id', function (req, res) {
         //console.log(req) //I used this to figure out where did pid and cid go in the request
         console.log(req.params.animal_id)
         console.log(req.params.food_id)
         var mysql = req.app.get('mysql');
         var sql = "DELETE FROM animals_foods WHERE animal_id = ? AND food_id = ?";
         var inserts = [req.params.animal_id, req.params.food_id];
-        sql = mysql.pool.query(sql, inserts, function(error, results, fields){
-            if(error){
+        sql = mysql.pool.query(sql, inserts, function (error, results, fields) {
+            if (error) {
                 res.write(JSON.stringify(error));
-                res.status(400); 
-                res.end(); 
-            }else{
+                res.status(400);
+                res.end();
+            } else {
                 res.status(202).end();
             }
         })
