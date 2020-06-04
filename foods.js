@@ -4,7 +4,7 @@ module.exports = function () {
     var router = express.Router();
 
     function getFoods(res, mysql, context, complete) {
-        mysql.pool.query("SELECT food_type, inventory FROM foods", function (error, results, fields) {
+        mysql.pool.query("SELECT food_id, food_type, inventory FROM foods", function (error, results, fields) {
             if (error) {
                 res.write(JSON.stringify(error));
                 res.end();
@@ -51,6 +51,24 @@ module.exports = function () {
             }
         });
     });
+
+    /* Route to delete a food, simply returns a 202 upon success. Ajax will handle this. */
+
+    router.delete('/:food_id', function (req, res) {
+        var mysql = req.app.get('mysql');
+        var sql = "DELETE FROM foods WHERE food_id = ?";
+        var inserts = [req.params.food_id];
+        sql = mysql.pool.query(sql, inserts, function (error, results, fields) {
+            if (error) {
+                console.log(error)
+                res.write(JSON.stringify(error));
+                res.status(400);
+                res.end();
+            } else {
+                res.status(202).end();
+            }
+        })
+    })
 
 
     return router;
