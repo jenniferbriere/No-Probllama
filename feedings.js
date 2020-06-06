@@ -50,7 +50,7 @@ module.exports = function () {
     router.get('/', function (req, res) {
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ['deleteanimal.js'];
+        context.jsscripts = ['deletefoods.js'];
         var mysql = req.app.get('mysql');
         var handlebars_file = 'feedings';
 
