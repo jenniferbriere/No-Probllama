@@ -26,9 +26,9 @@ module.exports = function(){
     }
 
     function getAnimalsbySpecies(req, res, mysql, context, complete){
-      var query = "SELECT animals.animal_id, animals.name, species.species_name, birthdate, active FROM animals INNER JOIN species ON animals.species_id = species.species_id WHERE animals.species_id = ?";
+      var query = "SELECT animals.animal_id, animals.name, species.species_name AS species, birthdate, active FROM animals INNER JOIN species ON animals.species_id = species.species_id WHERE animals.species_id = ?";
       console.log(req.params)
-      var inserts = [req.params.species_id]
+      var inserts = [req.params.species]
       mysql.pool.query(query, inserts, function(error, results, fields){
             if(error){
                 res.write(JSON.stringify(error));
