@@ -118,9 +118,6 @@ module.exports = function () {
      * /animal/{{animal_id}}/food/{{food_id}} -- which is sent by the AJAX form 
      */
     router.delete('/animal/:animal_id/food/:food_id', function (req, res) {
-        //console.log(req) //I used this to figure out where did pid and cid go in the request
-        console.log(req.params.animal_id)
-        console.log(req.params.food_id)
         var mysql = req.app.get('mysql');
         var sql = "DELETE FROM animals_foods WHERE animal_id = ? AND food_id = ?";
         var inserts = [req.params.animal_id, req.params.food_id];
