@@ -77,7 +77,7 @@
   <form id='filter_animals' action='' method=''>
     <!--- this form does not submit directly, the button handles all the interaction with backend -->
     <label> Filter by Species </label>
-    <select id='species_filter' name="species_id" name="species_filter">
+    <select id='species_filter' name="species">
       {{#each species}}
       <option value="{{id}}">{{species_name}}</option>
       {{/each}}
