@@ -1,3 +1,5 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -12,7 +14,7 @@
             <ul class="nav navbar-nav">
                 <li><a href="/">Home</a></li>
                 <li><a href="/animals">Animals</a></li>
-                <li class="active"><a href="#">Food Inventory</a></li>
+                <li class="active"><a href="/foods">Food Inventory</a></li>
                 <li><a href="/feedings">Feedings</a></li>
                 <li><a href="/sponsorships">Sponsorships</a></li>
             </ul>
@@ -51,34 +53,38 @@
     </div>
     <br>
 
+
     <table class="table mt-3">
         <thead>
             <tr>
                 <th>Food type</th>
                 <th>Inventory (lbs)</th>
-                <th colspan="3"></th>
+                <th>Update Inventory Amount</th>
+                <th colspan="2"></th>
             </tr>
         </thead>
         <tbody>
-            <form id="updateFoods" action="/foods" method="post">
-                <tr>
-                    {{#each foods}}
-                    <td>{{food_type}}</td>
-                    <td>{{inventory}}</td>
-                    <td>
-                        <input type="text" class="form-control" name="new_inventory" value="{{inventory}}">
-                    </td>
-                    <td>
-                        <button class="btn" type="" name="update" onclick="updateFood({{food_id}})">Update</button>
-                    </td>
-                    <td>
-                        <button class="btn" type="" name="delete" onclick="deleteFood({{food_id}})">Delete</button>
-                    </td>
-            </form>
+            {{#each foods}}
+            <tr>
+                <td>{{food_type}}</td>
+                <td>{{inventory}}</td>
+                <td>
+                    <form id="updateFoods" action="/foods" method="post">
+                        <input type="text" class="form-control" name="inventory" value="{{inventory}}">
+                    </form>
+                </td>
+                <td>
+                    <button class="btn" type="" name="update" onclick="updateFood({{food_id}})">Update</button>
+
+                </td>
+                <td>
+                    <button class="btn" type="" name="delete" onclick="deleteFood({{food_id}})">Delete</button>
+                </td>
             </tr>
             {{/each}}
         </tbody>
     </table>
+
 
 
     <footer class="container-fluid text-center">
