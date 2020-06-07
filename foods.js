@@ -1,4 +1,3 @@
-
 module.exports = function () {
     var express = require('express');
     var router = express.Router();
@@ -14,16 +13,44 @@ module.exports = function () {
         });
     }
 
+    function getFood(res, mysql, context, food_id, complete) {
+        var sql = "SELECT food_id, food_type, inventory FROM foods WHERE food_id = ?";
+        var inserts = [food_id];
+        mysql.pool.query(sql, inserts, function (error, results, fields) {
+            if (error) {
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.foods = results[0];
+            complete();
+        });
+    }
 
-    /*Display all foods in the inventory. Requires web based javascript to delete users with AJAX*/
-
+    /*Display all foods in the inventory. */
     router.get('/', function (req, res) {
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ["deletefoods.js"];
+        context.jsscripts = ["deletefoods.js", "updatefoods.js"];
         var mysql = req.app.get('mysql');
         getFoods(res, mysql, context, complete);
+        function complete() {
+            callbackCount++;
+            if (callbackCount >= 1) {
+                res.render('foods', context);
+            }
 
+        }
+    });
+
+
+    /* Display one food type for the specific purpose of updating the inventory */
+
+    router.get('/:food_id', function (req, res) {
+        callbackCount = 0;
+        var context = {};
+        context.jsscripts = ["updatefoods.js"];
+        var mysql = req.app.get('mysql');
+        getFood(res, mysql, context, req.params.food_id, complete);
         function complete() {
             callbackCount++;
             if (callbackCount >= 1) {
@@ -34,7 +61,6 @@ module.exports = function () {
     });
 
     /* Adds a food type, redirects to the foods page after adding */
-
     router.post('/', function (req, res) {
         // console.log(req.body.species_id)
         console.log(req.body)
@@ -49,6 +75,27 @@ module.exports = function () {
             } else {
                 res.redirect('/foods');
             }
+        });
+    });
+
+    /* The URI that update data is sent to in order to update a person */
+
+    router.put('/:food_id', function (req, res) {
+        var mysql = req.app.get('mysql');
+        console.log(req.body)
+        console.log(req.params.food_id)
+        var sql = "UPDATE foods SET inventory=? WHERE food_id=?";
+        var inserts = [req.body.new_inventory, req.params.food_id];
+        sql = mysql.pool.query(sql, inserts, function (error, results, fields) {
+            if (error) {
+                console.log(error)
+                res.write(JSON.stringify(error));
+                res.end();
+            } else {
+                res.status(200);
+                res.end();
+            }
+            res.redirect('/foods');
         });
     });
 
