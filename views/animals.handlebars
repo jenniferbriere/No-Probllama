@@ -23,68 +23,71 @@
 
 <div class="col-md-8 mx-auto">
   <h3>Animals</h3><br>
-
-  <h4>Add an Animal</h4><br>
-  <!-- The form -->
-  <form id="addAnimal" action="/animals" method="post">
-    <div class="form-group">
+  <div class="">
+    <h4>Add an Animal</h4>
+  </div>
+  <div class="form-group">
+    <form id="addAnimal" action="/animals" method="post">
       <label for="">Name</label>
-      <input type="text" class="form-control" id="" name="name">
-    </div>
-    <div class="form-group">
+      <input type="text" class="form-control" id="" name="name"><br>
       <label for="">Species</label>
       <select class="form-control" id="" name="id">
         {{#each species}}
         <option value="{{id}}">{{species_name}}</option>
         {{/each}}
-      </select>
-    </div>
-    <div class="form-group">
+      </select><br>
       <label for="">Birthdate</label>
-      <input type="date" class="form-control" name="birthdate">
-    </div>
-    <div>
-      <input type="submit" value="Submit">
-    </div>
-    <br>
-    <hr>
-    <div class="form-group">
-      <label for="">
-        <h4>Add New Species</h4>
-      </label>
-      <input type="text" class="form-control" id="">
-    </div>
-    <div>
-      <input type="submit" value="Submit">
-    </div>
-  </form>
+      <input type="date" class="form-control" name="birthdate"><br>
+      <input type="submit" value="Add">
+    </form>
+  </div>
+
   <br>
   <hr>
-  <h4>Search for an Animal</h4><br>
+  <br>
+
+  <div class="">
+    <h4>Add New Species</h4>
+  </div>
+  <br>
+
+  <div class="form-group">
+    <form method="post" action="/species">
+      <input type="text" class="form-control" name="species_name"><br>
+      <input type="submit" value="Add">
+    </form>
+  </div>
+
+  <br>
+  <hr>
+  <h3>Search for an Animal</h3><br>
 
   <h4>Search by Name</h4>
 
 
   <!-- The form -->
-  <form class="example" action="action_page.php">
-    <input id='name_search_string' type='text' name='name_search_string' value=''>
-    <input type="button" value="Search" onclick="searchAnimalsByName()">
-  </form><br><br>
+  <div class="form-group">
+    <form class="example" action="action_page.php">
+      <input id='name_search_string' type='text' name='name_search_string' value=''>
+      <input type="button" value="Search" onclick="searchAnimalsByName()">
+    </form><br><br>
+  </div>
+
 
   <h4>Filter by Species</h4>
-
-  <!-- Filter by species not yet implemented on frontend-->
-  <form id='filter_animals' action='' method=''>
-    <!--- this form does not submit directly, the button handles all the interaction with backend -->
-    <label> Filter by Species </label>
-    <select id='species_filter' name="species">
-      {{#each species}}
-      <option value="{{id}}">{{species_name}}</option>
-      {{/each}}
-    </select><br>
-    <input type="button" value="Filter" onclick="filterAnimalsBySpecies()">
-  </form>
-
+  <div class="form-group">
+    <!-- Filter by species not yet implemented on frontend-->
+    <form id='filter_animals' action='' method=''>
+      <!--- this form does not submit directly, the button handles all the interaction with backend -->
+      <label> Filter by Species </label>
+      <select id='species_filter' name="species">
+        {{#each species}}
+        <option value="{{id}}">{{species_name}}</option>
+        {{/each}}
+      </select><br>
+      <input type="button" value="Filter" onclick="filterAnimalsBySpecies()">
+    </form>
+  </div>
   <br>
   <hr>
 
@@ -99,7 +102,8 @@
         <th>SPECIES</th>
         <th>BIRTHDATE</th>
         <th>ACTIVE</th>
-        <th></th> <!--Empty header reserved for update button-->
+        <th></th>
+        <!--Empty header reserved for update button-->
       </tr>
     </thead>
     <tbody>

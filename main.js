@@ -24,6 +24,7 @@ app.use('/foods', require('./foods.js'));
 app.use('/feedings', require('./feedings.js'));
 app.use('/sponsorships', require('./sponsorships.js'));
 app.use('/sponsors', require('./sponsors.js'));
+app.use('/species', require('./species.js'));
 app.use('/', express.static('public'));
 
 app.use(function (req, res) {
