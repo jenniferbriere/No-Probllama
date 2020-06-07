@@ -92,27 +92,6 @@ module.exports = function () {
         res.redirect('/feedings');
     });
 
-    /* Adds a new feeding, then reloads the page after adding */
-
-    //router.post('/', function (req, res) {
-    //   console.log(req.body.animals);
-    //   console.log(req.body.foods);
-    //   console.log(req.body);
-    //   var mysql = req.app.get('mysql');
-    //   var sql = 'INSERT INTO animals_foods (animal_id, food_id, amount, x_per_day) VALUES (?,?,?,?)';
-    //   var inserts = [req.body.animal_id, req.body.food_id, req.body.amount, req.body.x_per_day];
-    //   sql = mysql.pool.query(sql, inserts, function (error, results, fields) {
-    //       if (error) {
-    //           console.log(JSON.stringify(error));
-    //           res.write(JSON.stringify(error));
-    //           res.end();
-    //       } else {
-    //           res.redirect('/feedings');
-    //       }
-    //   });
-    //    });
-
-
     /* Delete an animal's feeding record */
     /* This route will accept a HTTP DELETE request in the form
      * /animal/{{animal_id}}/food/{{food_id}} -- which is sent by the AJAX form 

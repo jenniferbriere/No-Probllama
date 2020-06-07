@@ -39,10 +39,10 @@
 
 	<form id="addFeeding" method="post" action="/feedings">
 		<div class="form-group">
-			<label for="animal_name">Animal Name</label>
+			<label for="animal_name">Animal</label>
 			<select class="form-control" id="animal" name="animal_id">
 				{{#each animals}}
-				<option value="{{animal_id}}">{{name}}</option>
+				<option value="{{animal_id}}">{{name}} - {{species_name}}</option>
 				{{/each}}
 			</select>
 		</div>
@@ -102,7 +102,8 @@
 				<td><a href="/feedings/{{amount}}">Update</a></td> <!-- Not sure if this is correct for updating -->
 				<td>{{x_per_day}}</td>
 				<td><a href="/feedings/{{x_per_day}}">Update</a></td> <!-- Not sure if this is correct for updating -->
-				<td><button class="btn" type="" name="delete" onclick="deleteFeeding({{animal_id}},{{food_id}})">Delete</button></td>
+				<td><button class="btn" type="" name="delete"
+						onclick="deleteFeeding({{animal_id}},{{food_id}})">Delete</button></td>
 			</tr>
 			{{/each}}
 		</tbody>
