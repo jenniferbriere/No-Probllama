@@ -26,9 +26,9 @@ module.exports = function () {
     }
 
     function getAnimalsbySpecies(req, res, mysql, context, complete) {
-        var query = "SELECT animals.animal_id, animals.name, species.species_name AS species, birthdate, active FROM animals INNER JOIN species ON animals.species_id = species.species_id WHERE animals.species_id = ?";
+        var query = "SELECT animals.animal_id, animals.name, species.species_name, birthdate, active FROM animals INNER JOIN species ON animals.species_id = species.species_id WHERE animals.species_id = ?";
         console.log(req.params)
-        var inserts = [req.params.species]
+        var inserts = [req.params.species_name]
         mysql.pool.query(query, inserts, function (error, results, fields) {
             if (error) {
                 res.write(JSON.stringify(error));
@@ -88,7 +88,7 @@ module.exports = function () {
 
     /*Display all animals of a given species. Requires web based javascript to delete users with AJAX*/
 
-    router.get('/filter/:species', function (req, res) {
+    router.get('/filter/:species_name', function (req, res) {
         var callbackCount = 0;
         var context = {};
         context.jsscripts = ["deleteanimal.js", "filteranimals.js", "searchanimals.js"];
@@ -141,24 +141,7 @@ module.exports = function () {
         });
     });
 
-    /* Adds a species, redirects to the animals page after adding */
-    // need to figure out how to do a second post for same '/' on same page
-    /*     router.post('/', function(req, res){
-            console.log(req.body.species_name)
-            console.log(req.body)
-            var mysql = req.app.get('mysql');
-            var sql = "INSERT INTO species (species_name) VALUES (?)";
-            var inserts = [req.body.species_name];
-            sql = mysql.pool.query(sql,inserts,function(error, results, fields){
-                if(error){
-                    console.log(JSON.stringify(error))
-                    res.write(JSON.stringify(error));
-                    res.end();
-                }else{s
-                    res.redirect('/animals');
-                }
-            });
-        }); */
+
 
     // UPDATE FUNCTIONS BELOW
     /* Display one animal for the specific purpose of updating animals */
