@@ -164,7 +164,7 @@ module.exports = function () {
         var mysql = req.app.get('mysql');
         console.log(req.body)
         console.log(req.params.id)
-        var sql = "UPDATE animals SET active=0 WHERE animal_id=?";
+        var sql = "UPDATE animals SET active=? WHERE animal_id=?";
         var inserts = [req.body.active, req.params.id];
         sql = mysql.pool.query(sql, inserts, function (error, results, fields) {
             if (error) {
