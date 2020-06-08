@@ -67,9 +67,10 @@
       <label for="last_name">Last name:</label for="food_type">
       <input type="text" class="form-control" name="last_name" required><br>
       <label for="phone_number">Phone number:</label>
-      <input type="text" class="form-control" name="phone_number" required><br>
+      <input type="tel" class="form-control" name="phone_number" placeholder="format 5555555555"
+        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required><br>
       <label for="email">Email address:</label>
-      <input type="text" class="form-control" name="email" required><br>
+      <input type="email" class="form-control" name="email" required><br>
       <input type="submit" name="add" value="Add">
     </form>
   </div>
