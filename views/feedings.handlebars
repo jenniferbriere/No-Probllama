@@ -27,7 +27,7 @@
 
 		<!-- The form -->
 		<form class="example" action="action_page.php">
-			<input id='name_search_string' type='text' name='name_search_string' value=''>
+			<input id='name_search_string' type='text' name='name_search_string' value='' required>
 			<input type="button" value="Search" onclick="searchAnimalsByName()">
 		</form><br><br>
 	</div>
@@ -56,11 +56,11 @@
 		</div>
 		<div class="form-group">
 			<label for="amount">Amount</label>
-			<input type="number" class="form-control" name="amount" value="">
+			<input type="number" class="form-control" name="amount" value="" required>
 		</div>
 		<div class="form-group">
 			<label for="x_per_day">Times per Day</label>
-			<input type="number" class="form-control" name="x_per_day" value="">
+			<input type="number" class="form-control" name="x_per_day" value="" required>
 		</div>
 		<div class="form-group">
 			<input type="submit" class="" name="add" value="Add">
