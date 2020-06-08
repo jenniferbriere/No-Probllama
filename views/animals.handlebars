@@ -29,7 +29,7 @@
   <div class="form-group">
     <form id="addAnimal" action="/animals" method="post">
       <label for="">Name</label>
-      <input type="text" class="form-control" id="" name="name"><br>
+      <input type="text" class="form-control" id="" name="name" required><br>
       <label for="">Species</label>
       <select class="form-control" id="" name="id">
         {{#each species}}
@@ -52,7 +52,7 @@
 
   <div class="form-group">
     <form method="post" action="/species">
-      <input type="text" class="form-control" name="species_name"><br>
+      <input type="text" class="form-control" name="species_name" required><br>
       <input type="submit" value="Add">
     </form>
   </div>
