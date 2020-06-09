@@ -33,7 +33,7 @@ module.exports = function () {
      */
     function getAnimalsWithFoods(res, mysql, context, complete) {
         sql =
-            'SELECT animals.animal_id, foods.food_id, animals.name, foods.food_type, animals_foods.amount, animals_foods.x_per_day FROM animals INNER JOIN animals_foods on animals.animal_id = animals_foods.animal_id INNER JOIN foods on foods.food_id = animals_foods.food_id ORDER BY name ASC';
+            'SELECT animals.animal_id, foods.food_id, animals.name, species.species_name, foods.food_type, animals_foods.amount, animals_foods.x_per_day FROM animals INNER JOIN animals_foods on animals.animal_id = animals_foods.animal_id INNER JOIN foods on foods.food_id = animals_foods.food_id INNER JOIN species on animals.species_id = species.species_id ORDER BY name ASC';
         mysql.pool.query(sql, function (error, results, fields) {
             if (error) {
                 res.write(JSON.stringify(error));
