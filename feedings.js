@@ -114,7 +114,7 @@ module.exports = function () {
     // UPDATE FUNCTIONS
     
     function getFeeding(res, mysql, context, animal_id, food_id, complete) {
-        var sql = "SELECT animals.animal_id, foods.food_id, animals.name, foods.food_type, animals_foods.amount, animals_foods.x_per_day FROM animals INNER JOIN animals_foods on animals.animal_id = animals_foods.animal_id INNER JOIN foods on foods.food_id = animals_foods.food_id WHERE animal_id=? AND food_id=?";
+        var sql = "SELECT animals.animal_id, foods.food_id, animals.name, foods.food_type, animals_foods.amount, animals_foods.x_per_day FROM animals INNER JOIN animals_foods on animals.animal_id = animals_foods.animal_id INNER JOIN foods on foods.food_id = animals_foods.food_id WHERE animals_foods.animal_id=? AND animals_foods.food_id=?";
         var inserts = [animal_id, food_id];
         mysql.pool.query(sql, inserts, function (error, results, fields) {
             if (error) {
