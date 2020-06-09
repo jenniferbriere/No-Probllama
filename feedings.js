@@ -177,7 +177,7 @@ module.exports = function () {
                 res.write(JSON.stringify(error));
                 res.end();
             }
-            context.animals = results;
+            context.feedings = results;
             complete();
         });
     }
