@@ -21,7 +21,7 @@ module.exports = function () {
                 res.write(JSON.stringify(error));
                 res.end();
             }
-            context.foods = results[0];
+            context.food = results[0];
             complete();
         });
     }
@@ -30,7 +30,7 @@ module.exports = function () {
     router.get('/', function (req, res) {
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ["deletefoods.js", "updatefoods.js"];
+        context.jsscripts = ["deletefoods.js", "updatefood.js"];
         var mysql = req.app.get('mysql');
         getFoods(res, mysql, context, complete);
         function complete() {
@@ -48,13 +48,13 @@ module.exports = function () {
     router.get('/:food_id', function (req, res) {
         callbackCount = 0;
         var context = {};
-        context.jsscripts = ["updatefoods.js"];
+        context.jsscripts = ["updatefood.js"];
         var mysql = req.app.get('mysql');
         getFood(res, mysql, context, req.params.food_id, complete);
         function complete() {
             callbackCount++;
             if (callbackCount >= 1) {
-                res.render('foods', context);
+                res.render('update-food', context);
             }
 
         }
@@ -78,14 +78,14 @@ module.exports = function () {
         });
     });
 
-    /* The URI that update data is sent to in order to update a person */
+    /* The URI that update data is sent to in order to update a food */
 
     router.put('/:food_id', function (req, res) {
         var mysql = req.app.get('mysql');
         console.log(req.body)
         console.log(req.params.food_id)
         var sql = "UPDATE foods SET inventory=? WHERE food_id=?";
-        var inserts = [req.body.new_inventory, req.params.food_id];
+        var inserts = [req.body.inventory, req.params.food_id];
         sql = mysql.pool.query(sql, inserts, function (error, results, fields) {
             if (error) {
                 console.log(error)
@@ -95,7 +95,6 @@ module.exports = function () {
                 res.status(200);
                 res.end();
             }
-            res.redirect('/foods');
         });
     });
 

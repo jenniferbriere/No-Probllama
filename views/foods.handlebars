@@ -59,7 +59,6 @@
             <tr>
                 <th>Food type</th>
                 <th>Inventory (lbs)</th>
-                <th>Update Inventory Amount</th>
                 <th colspan="2"></th>
             </tr>
         </thead>
@@ -68,18 +67,8 @@
             <tr>
                 <td>{{food_type}}</td>
                 <td>{{inventory}}</td>
-                <td>
-                    <form id="updateFoods" action="/foods" method="post">
-                        <input type="number" class="form-control" name="inventory" value="{{inventory}}" required>
-                    </form>
-                </td>
-                <td>
-                    <button class="btn" type="" name="update" onclick="updateFood({{food_id}})">Update</button>
-
-                </td>
-                <td>
-                    <button class="btn" type="" name="delete" onclick="deleteFood({{food_id}})">Delete</button>
-                </td>
+                <td><a href="/foods/{{food_id}}"><button class="btn" name="update">Update</button></a></td>
+                <td><button class="btn" type="" name="delete" onclick="deleteFood({{food_id}})">Delete</button></td>
             </tr>
             {{/each}}
         </tbody>
@@ -91,5 +80,4 @@
         <h6>Copyright No Probllama! 2020 All Rights Reserved.</h6>
     </footer>
 
-</div>
 </div>
