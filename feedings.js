@@ -136,7 +136,7 @@ module.exports = function () {
         getFeeding(res, mysql, context, req.params.animal_id, req.params.food_id, complete);
         function complete() {
             callbackCount++;
-            if (callbackCount >= 2) {
+            if (callbackCount >= 2) { // should be 1?
                 res.render('update-feeding', context);
             }
 
@@ -163,6 +163,40 @@ module.exports = function () {
             }
         });
     });
+    
+    // SEARCH FUNCTIONS
+    
+    /* Find feedings for animals whose name starts with a given string in the req */
+    function getFeedingsWithNameLike(req, res, mysql, context, complete) {
+      //sanitize the input as well as include the % character
+       var query = "SELECT animals.animal_id, foods.food_id, animals.name, foods.food_type, animals_foods.amount, animals_foods.x_per_day FROM animals INNER JOIN animals_foods on animals.animal_id = animals_foods.animal_id INNER JOIN foods on foods.food_id = animals_foods.food_id WHERE animals.name LIKE " + mysql.pool.escape(req.params.s + '%');
+      console.log(query)
+
+      mysql.pool.query(query, function(error, results, fields){
+            if(error){
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.people = results;
+            complete();
+        });
+    }
+    
+    /*Display all feedings for animals whose name starts with a given string. Requires web based javascript to delete users with AJAX */
+    router.get('/search/:s', function(req, res){
+        var callbackCount = 0;
+        var context = {};
+        context.jsscripts = ["deletefeeding.js","searchfeedings.js"];
+        var mysql = req.app.get('mysql');
+        getFeedingsWithNameLike(req, res, mysql, context, complete);
+        function complete(){
+            callbackCount++;
+            if(callbackCount >= 2){ // should be 1?
+                res.render('people', context);
+            }
+        }
+    });
+    
 
     return router;
 }();
