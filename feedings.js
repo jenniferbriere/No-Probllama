@@ -83,6 +83,56 @@ module.exports = function () {
         }
     });
 
+    // get individual feeding for updating
+
+    function getFeeding(res, mysql, context, animal_id, food_id, complete) {
+        var sql = "SELECT animals.animal_id, foods.food_id, animals.name, species.species_name, foods.food_type, animals_foods.amount, animals_foods.x_per_day FROM animals INNER JOIN animals_foods on animals.animal_id = animals_foods.animal_id INNER JOIN foods on foods.food_id = animals_foods.food_id INNER JOIN species on animals.species_id = species.species_id WHERE animals_foods.animal_id=? AND animals_foods.food_id=?";
+        var inserts = [animal_id, food_id];
+        mysql.pool.query(sql, inserts, function (error, results, fields) {
+            if (error) {
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.feeding = results[0];
+            complete();
+        });
+    }
+
+    /* Display one feeding for the specific purpose of updating */
+    router.get('/animal/:animal_id/food/:food_id', function (req, res) {
+        callbackCount = 0;
+        var context = {};
+        context.jsscripts = ["updatefeeding.js"];
+        var mysql = req.app.get('mysql');
+        getFeeding(res, mysql, context, req.params.animal_id, req.params.food_id, complete);
+        function complete() {
+            callbackCount++;
+            if (callbackCount >= 1) { // testing 1, originally was 2
+                res.render('update-feeding', context);
+            }
+        }
+    });
+
+    /* The URI that update data is sent to in order to update a feeding */
+    router.put('/animal/:animal_id/food/:food_id', function (req, res) {
+        var mysql = req.app.get('mysql');
+        console.log(req.body)
+        console.log(req.params.animal_id)
+        console.log(req.params.food_id)
+        var sql = "UPDATE animals_foods SET amount=?, x_per_day=? WHERE animal_id=? AND food_id=?";
+        var inserts = [req.body.amount, req.body.x_per_day, req.params.animal_id, req.params.food_id];
+        sql = mysql.pool.query(sql, inserts, function (error, results, fields) {
+            if (error) {
+                console.log(error)
+                res.write(JSON.stringify(error));
+                res.end();
+            } else {
+                res.status(200);
+                res.end();
+            }
+        });
+    });
+
     /*Display all feedings for animals with given name.  */
 
     router.get('/search/:s', function (req, res) {
