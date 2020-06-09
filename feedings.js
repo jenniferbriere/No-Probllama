@@ -136,7 +136,7 @@ module.exports = function () {
         getFeeding(res, mysql, context, req.params.animal_id, req.params.food_id, complete);
         function complete() {
             callbackCount++;
-            if (callbackCount >= 2) { // should be 1?
+            if (callbackCount >= 1) { // testing 1, originally was 2
                 res.render('update-feeding', context);
             }
 
