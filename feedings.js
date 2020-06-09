@@ -167,9 +167,9 @@ module.exports = function () {
     // SEARCH FUNCTIONS
     
     /* Find animals whose names start with a given string in the req */
-    function getAnimalsWithNameLike(req, res, mysql, context, complete) {
+    function getFeedingsWithNameLike(req, res, mysql, context, complete) {
         //sanitize the input as well as include the % character
-        var query = "SELECT animals.animal_id, animals.name, species.species_name, birthdate, active FROM animals INNER JOIN species ON animals.species_id = species.species_id WHERE animals.name LIKE " + mysql.pool.escape(req.params.s + '%');
+        var query = "SELECT animals.animal_id, foods.food_id, animals.name, foods.food_type, animals_foods.amount, animals_foods.x_per_day FROM animals INNER JOIN animals_foods on animals.animal_id = animals_foods.animal_id INNER JOIN foods on foods.food_id = animals_foods.food_id WHERE animals.name LIKE " + mysql.pool.escape(req.params.s + '%');
         console.log(query)
 
         mysql.pool.query(query, function (error, results, fields) {
@@ -188,7 +188,7 @@ module.exports = function () {
         var context = {};
         context.jsscripts = ["deletefeeding.js","searchfeedings.js"];
         var mysql = req.app.get('mysql');
-        getAnimalsWithNameLike(req, res, mysql, context, complete);
+        getFeedingsWithNameLike(req, res, mysql, context, complete);
         getFoods(res, mysql, context, complete);
         function complete(){
             callbackCount++;
