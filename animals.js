@@ -55,9 +55,9 @@ module.exports = function () {
         });
     }
 
-    function getAnimal(res, mysql, context, id, complete) {
-        var sql = "SELECT animals.animal_id, name, species.species_name, birthdate, active FROM animals WHERE animal_id = ?";
-        var inserts = [id];
+    function getAnimal(res, mysql, context, animal_id, complete) {
+        var sql = "SELECT animals.animal_id AS animal_id, name, species.species_name, birthdate, active FROM animals WHERE animal_id = ?";
+        var inserts = [animal_id];
         mysql.pool.query(sql, inserts, function (error, results, fields) {
             if (error) {
                 res.write(JSON.stringify(error));
@@ -145,12 +145,12 @@ module.exports = function () {
 
     // UPDATE FUNCTIONS BELOW
     /* Display one animal for the specific purpose of updating animals */
-    router.get('/:id', function (req, res) {
+    router.get('/:animal_id', function (req, res) {
         callbackCount = 0;
         var context = {};
         context.jsscripts = ["updateanimal.js"];
         var mysql = req.app.get('mysql');
-        getAnimal(res, mysql, context, req.params.id, complete);
+        getAnimal(res, mysql, context, req.params.animal_id, complete);
         function complete() {
             callbackCount++;
             if (callbackCount >= 1) {
@@ -160,12 +160,12 @@ module.exports = function () {
     });
 
     /* The URI that update data is sent to in order to update an animal */
-    router.put('/:id', function (req, res) {
+    router.put('/:animal_id', function (req, res) {
         var mysql = req.app.get('mysql');
         console.log(req.body)
-        console.log(req.params.id)
+        console.log(req.params.animal_id)
         var sql = "UPDATE animals SET active=? WHERE animal_id=?";
-        var inserts = [req.body.active, req.params.id];
+        var inserts = [req.body.active, req.params.animal_id];
         sql = mysql.pool.query(sql, inserts, function (error, results, fields) {
             if (error) {
                 console.log(error)
