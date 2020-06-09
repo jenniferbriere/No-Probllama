@@ -29,8 +29,10 @@
     <br>
 
     <form id="update-animal" action="/animals" method="post">
-        <label for="active">To toggle animal's active status, enter a "0" for inactive or "1" for active:</label>
-        <input type="number" class="form-control" name="active" value="{{animal.active}}"><br>
+        <div class="form-group">
+            <label for="active">To toggle animal's active status, enter a "0" for inactive or "1" for active:</label>
+            <input type="number" class="form-control" name="active" value="{{animal.active}}" required><br>
+        </div>
         <button onclick="updateAnimal({{animal.id}})">Update</button>
     </form>
 
@@ -40,5 +42,3 @@
         <h6>Copyright No Probllama! 2020 All Rights Reserved.</h6>
     </footer>
 </div>
-
-</html>
