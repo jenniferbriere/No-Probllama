@@ -56,7 +56,7 @@ module.exports = function () {
     }
 
     function getAnimal(res, mysql, context, animal_id, complete) {
-        var sql = "SELECT animals.animal_id AS animal_id, name, species.species_name, birthdate, active FROM animals WHERE animal_id = ?";
+        var sql = "SELECT animals.animal_id AS animal_id, animals.name, species.species_name, birthdate, active FROM animals INNER JOIN species ON animals.species_id = species.species_id WHERE animal_id = ?";
         var inserts = [animal_id];
         mysql.pool.query(sql, inserts, function (error, results, fields) {
             if (error) {
