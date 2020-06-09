@@ -81,9 +81,6 @@
 				<th>Animal</th>
 				<th>Food type</th>
 				<th>Amount</th>
-				<th>
-					<!-- empty for update button -->
-				</th>
 				<th>Times per Day</th>
 				<th>
 					<!-- empty for update button -->
@@ -99,9 +96,8 @@
 				<td>{{name}}</td>
 				<td>{{food_type}}</td>
 				<td>{{amount}}</td>
-				<td><a href="/feedings/{{amount}}">Update</a></td> <!-- Not sure if this is correct for updating -->
 				<td>{{x_per_day}}</td>
-				<td><a href="/feedings/{{x_per_day}}">Update</a></td> <!-- Not sure if this is correct for updating -->
+				<td><a href="/feedings/animal/{{animal_id}}/food/{{food_id}}"><button class="btn" name="update">Update</button></a></td>
 				<td><button class="btn" type="" name="delete"
 						onclick="deleteFeeding({{animal_id}},{{food_id}})">Delete</button></td>
 			</tr>
