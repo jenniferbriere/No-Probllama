@@ -1,0 +1,50 @@
+<html lang="en">
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">No Probllama!</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li><a href="/">Home</a></li>
+                <li><a href="/animals">Animals</a></li>
+                <li><a href="/foods">Food Inventory</a></li>
+                <li class="active"><a href="/feedings">Feedings</a></li>
+                <li><a href="/sponsorships">Sponsorships</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="col-md-8 mx-auto">
+
+    <div class="">
+        <h3>Update a Feeding for {{feeding.name}}:</h3>
+    </div>
+    <br>
+
+    <form id="update-feeding" action="/feedings" method="post">
+        <div class="form-group">
+            <label for="amount">Amount (lbs)</label>
+            <input type="number" class="form-control" name="amount" value="{{feeding.amount}}" required>
+        </div>
+        <div class="form-group">
+            <label for="x_per_day">Times Per Day</label>
+            <input type="number" class="form-control" name="x_per_day" value="{{feeding.x_per_day}}" required>
+        </div>
+        <button onclick="updateFeeding({{feeding.animal_id}}, {{feeding.food_id}})">Update</button>
+    </form>
+
+    <br>
+
+    <footer class="container-fluid text-center">
+        <h6>Copyright No Probllama! 2020 All Rights Reserved.</h6>
+    </footer>
+</div>
+
+</html>
