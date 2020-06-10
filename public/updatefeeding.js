@@ -4,7 +4,7 @@ function updateFeeding(animal_id, food_id) {
         type: 'PUT',
         data: $('#update-feeding').serialize(),
         success: function (result) {
-            window.location.replace("./");
+            window.location.replace("/feedings");
         }
     })
 };
