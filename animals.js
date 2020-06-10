@@ -15,7 +15,7 @@ module.exports = function () {
     }
 
     function getAnimals(res, mysql, context, complete) {
-        mysql.pool.query("SELECT animals.animal_id, animals.name, species.species_name, animals.birthdate, animals.active FROM animals INNER JOIN species ON animals.species_id = species.species_id", function (error, results, fields) {
+        mysql.pool.query("SELECT animals.animal_id, animals.name, species.species_id, species.species_name, animals.active FROM animals LEFT JOIN species ON animals.species_id = species.species_id", function (error, results, fields) {
             if (error) {
                 res.write(JSON.stringify(error));
                 res.end();
@@ -26,7 +26,7 @@ module.exports = function () {
     }
 
     function getAnimalsbySpecies(req, res, mysql, context, complete) {
-        var query = "SELECT animals.animal_id, animals.name, species.species_name, birthdate, active FROM animals INNER JOIN species ON animals.species_id = species.species_id WHERE animals.species_id = ?";
+        var query = "SELECT animals.animal_id, animals.name, species.species_name, active FROM animals INNER JOIN species ON animals.species_id = species.species_id WHERE animals.species_id = ?";
         console.log(req.params)
         var inserts = [req.params.species_name]
         mysql.pool.query(query, inserts, function (error, results, fields) {
@@ -42,7 +42,7 @@ module.exports = function () {
     /* Find animals whose names start with a given string in the req */
     function getAnimalsWithNameLike(req, res, mysql, context, complete) {
         //sanitize the input as well as include the % character
-        var query = "SELECT animals.animal_id, animals.name, species.species_name, birthdate, active FROM animals INNER JOIN species ON animals.species_id = species.species_id WHERE animals.name LIKE " + mysql.pool.escape(req.params.s + '%');
+        var query = "SELECT animals.animal_id, animals.name, species.species_name, active FROM animals INNER JOIN species ON animals.species_id = species.species_id WHERE animals.name LIKE " + mysql.pool.escape(req.params.s + '%');
         console.log(query)
 
         mysql.pool.query(query, function (error, results, fields) {
@@ -56,7 +56,7 @@ module.exports = function () {
     }
 
     function getAnimal(res, mysql, context, animal_id, complete) {
-        var sql = "SELECT animals.animal_id AS animal_id, animals.name, species.species_name, birthdate, active FROM animals INNER JOIN species ON animals.species_id = species.species_id WHERE animal_id = ?";
+        var sql = "SELECT animals.animal_id AS animal_id, animals.name, species.species_name, active FROM animals INNER JOIN species ON animals.species_id = species.species_id WHERE animal_id = ?";
         var inserts = [animal_id];
         mysql.pool.query(sql, inserts, function (error, results, fields) {
             if (error) {
@@ -73,7 +73,7 @@ module.exports = function () {
     router.get('/', function (req, res) {
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ["deleteanimal.js", "filteranimals.js", "searchanimals.js"];
+        context.jsscripts = ["filteranimals.js", "searchanimals.js"];
         var mysql = req.app.get('mysql');
         getAnimals(res, mysql, context, complete);
         getSpecies(res, mysql, context, complete);
@@ -91,7 +91,7 @@ module.exports = function () {
     router.get('/filter/:species_name', function (req, res) {
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ["deleteanimal.js", "filteranimals.js", "searchanimals.js"];
+        context.jsscripts = ["filteranimals.js", "searchanimals.js"];
         var mysql = req.app.get('mysql');
         getAnimalsbySpecies(req, res, mysql, context, complete);
         getSpecies(res, mysql, context, complete);
@@ -109,7 +109,7 @@ module.exports = function () {
     router.get('/search/:s', function (req, res) {
         var callbackCount = 0;
         var context = {};
-        context.jsscripts = ["deleteanimal.js", "filteranimals.js", "searchanimals.js"];
+        context.jsscripts = ["filteranimals.js", "searchanimals.js"];
         var mysql = req.app.get('mysql');
         getAnimalsWithNameLike(req, res, mysql, context, complete);
         getSpecies(res, mysql, context, complete);
@@ -128,8 +128,8 @@ module.exports = function () {
         console.log(req.body.species_id)
         console.log(req.body)
         var mysql = req.app.get('mysql');
-        var sql = "INSERT INTO animals (name, species_id, birthdate) VALUES (?,?,?)";
-        var inserts = [req.body.name, req.body.id, req.body.birthdate];
+        var sql = "INSERT INTO animals (name, species_id) VALUES (?,?)";
+        var inserts = [req.body.name, req.body.id];
         sql = mysql.pool.query(sql, inserts, function (error, results, fields) {
             if (error) {
                 console.log(JSON.stringify(error))

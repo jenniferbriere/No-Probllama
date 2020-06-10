@@ -32,12 +32,11 @@
       <input type="text" class="form-control" id="" name="name" required><br>
       <label for="">Species</label>
       <select class="form-control" id="" name="id">
+        <option disabled selected value> -- select an option -- </option>
         {{#each species}}
         <option value="{{id}}">{{species_name}}</option>
         {{/each}}
       </select><br>
-      <label for="">Birthdate</label>
-      <input type="date" class="form-control" name="birthdate"><br>
       <input type="submit" value="Add">
     </form>
   </div>
@@ -95,7 +94,6 @@
         <th>ID</th>
         <th>NAME</th>
         <th>SPECIES</th>
-        <th>BIRTHDATE</th>
         <th>ACTIVE</th>
         <th></th>
         <!--Empty header reserved for update button-->
@@ -106,8 +104,11 @@
       <tr>
         <td>{{animal_id}}</td>
         <td>{{name}}</td>
-        <td>{{species_name}}</td>
-        <td>{{birthdate}}</td>
+        <td>
+          {{#if species_name}}
+          {{species_name}}
+          {{/if}}
+        </td>
         <td>{{active}}</td>
         <td><a href="/animals/{{animal_id}}">Update Active Status</a></td>
       </tr>
